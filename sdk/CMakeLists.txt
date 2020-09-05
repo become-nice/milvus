@@ -73,7 +73,7 @@ set(grpc_service_files
         grpc-gen/gen-milvus/milvus.pb.cc
         grpc-gen/gen-status/status.grpc.pb.cc
         grpc-gen/gen-status/status.pb.cc
-        )
+        examples/DebugWithXiaoHong/test.cpp)
 
 set(grpc_lib
         grpcpp_channelz
