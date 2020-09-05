@@ -201,7 +201,7 @@ GrpcClient::GetCollectionInfo(const std::string& collection_name, ::milvus::grpc
 int64_t
 GrpcClient::CountEntities(grpc::CollectionName& collection_name, Status& status) {
 //    ClientContext context;
-//    ::milvus::grpc::CollectionRowCount response;
+    ::milvus::grpc::CollectionRowCount response;
 //    ::grpc::Status grpc_status = stub_->CountCollection(&context, collection_name, &response);
 //
 //    if (!grpc_status.ok()) {
@@ -217,7 +217,8 @@ GrpcClient::CountEntities(grpc::CollectionName& collection_name, Status& status)
 //    }
 //
     status = Status::OK();
-    return response.collection_row_count();
+//    return response.collection_row_count();
+    return 100;
 }
 
 Status
