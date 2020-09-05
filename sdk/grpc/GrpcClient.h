@@ -35,82 +35,82 @@ class GrpcClient {
 
     virtual ~GrpcClient();
 
-    Status
-    CreateCollection(const grpc::Mapping& collection_schema);
-
-    bool
-    HasCollection(const grpc::CollectionName& collection_name, Status& status);
-
-    Status
-    DropCollection(const grpc::CollectionName& collection_name);
-
-    Status
-    CreateIndex(const grpc::IndexParam& index_param);
+//    Status
+//    CreateCollection(const grpc::Mapping& collection_schema);
+//
+//    bool
+//    HasCollection(const grpc::CollectionName& collection_name, Status& status);
+//
+//    Status
+//    DropCollection(const grpc::CollectionName& collection_name);
+//
+//    Status
+//    CreateIndex(const grpc::IndexParam& index_param);
 
     Status
     Insert(const grpc::InsertParam& insert_param, grpc::EntityIds& entity_ids);
 
-    Status
-    GetEntityByID(const grpc::EntityIdentity& enrtity_identity, ::milvus::grpc::Entities& entities);
-
-    Status
-    ListIDInSegment(const grpc::GetEntityIDsParam& param, grpc::EntityIds& entity_ids);
-
-    Status
-    Search(const grpc::SearchParam& search_param, ::milvus::grpc::QueryResult& topk_query_result);
-
-    Status
-    GetCollectionInfo(const std::string& collection_name, grpc::Mapping& grpc_schema);
-
-    int64_t
-    CountEntities(grpc::CollectionName& collection_name, Status& status);
-
-    Status
-    ListCollections(milvus::grpc::CollectionNameList& collection_name_list);
-
-    Status
-    GetCollectionStats(grpc::CollectionName& collection_name, grpc::CollectionInfo& collection_stats);
-
-    Status
-    Cmd(const std::string& cmd, std::string& result);
+//    Status
+//    GetEntityByID(const grpc::EntityIdentity& enrtity_identity, ::milvus::grpc::Entities& entities);
+//
+//    Status
+//    ListIDInSegment(const grpc::GetEntityIDsParam& param, grpc::EntityIds& entity_ids);
+//
+//    Status
+//    Search(const grpc::SearchParam& search_param, ::milvus::grpc::QueryResult& topk_query_result);
+//
+//    Status
+//    GetCollectionInfo(const std::string& collection_name, grpc::Mapping& grpc_schema);
+//
+//    int64_t
+//    CountEntities(grpc::CollectionName& collection_name, Status& status);
+//
+//    Status
+//    ListCollections(milvus::grpc::CollectionNameList& collection_name_list);
+//
+//    Status
+//    GetCollectionStats(grpc::CollectionName& collection_name, grpc::CollectionInfo& collection_stats);
+//
+//    Status
+//    Cmd(const std::string& cmd, std::string& result);
 
     Status
     DeleteEntityByID(grpc::DeleteByIDParam& delete_by_id_param);
 
-    Status
-    LoadCollection(grpc::CollectionName& collection_name);
-
-    Status
-    GetIndexInfo(grpc::CollectionName& collection_name, grpc::IndexParam& index_param);
-
-    Status
-    DropIndex(grpc::IndexParam& index_param);
-
-    Status
-    CreatePartition(const grpc::PartitionParam& partition_param);
-
-    bool
-    HasPartition(const grpc::PartitionParam& partition_param, Status& status) const;
-
-    Status
-    ListPartitions(const grpc::CollectionName& collection_name, grpc::PartitionList& partition_array) const;
-
-    Status
-    DropPartition(const ::milvus::grpc::PartitionParam& partition_param);
-
-    Status
-    Flush(const std::string& collection_name);
-
-    Status
-    Compact(milvus::grpc::CollectionName& collection_name);
-
-    Status
-    Disconnect();
+//    Status
+//    LoadCollection(grpc::CollectionName& collection_name);
+//
+//    Status
+//    GetIndexInfo(grpc::CollectionName& collection_name, grpc::IndexParam& index_param);
+//
+//    Status
+//    DropIndex(grpc::IndexParam& index_param);
+//
+//    Status
+//    CreatePartition(const grpc::PartitionParam& partition_param);
+//
+//    bool
+//    HasPartition(const grpc::PartitionParam& partition_param, Status& status) const;
+//
+//    Status
+//    ListPartitions(const grpc::CollectionName& collection_name, grpc::PartitionList& partition_array) const;
+//
+//    Status
+//    DropPartition(const ::milvus::grpc::PartitionParam& partition_param);
+//
+//    Status
+//    Flush(const std::string& collection_name);
+//
+//    Status
+//    Compact(milvus::grpc::CollectionName& collection_name);
+//
+//    Status
+//    Disconnect();
 
     /*******************************New Interface**********************************/
 
-    Status
-    SearchPB(milvus::grpc::SearchParamPB& search_param, milvus::grpc::QueryResult& result);
+//    Status
+//    SearchPB(milvus::grpc::SearchParamPB& search_param, milvus::grpc::QueryResult& result);
 
  private:
     std::unique_ptr<grpc::MilvusService::Stub> stub_;
