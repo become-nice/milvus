@@ -35,8 +35,8 @@ GrpcClient::GrpcClient(std::shared_ptr<::grpc::Channel>& channel)
 
 GrpcClient::~GrpcClient() = default;
 
-//Status
-//GrpcClient::CreateCollection(const milvus::grpc::Mapping& mapping) {
+Status
+GrpcClient::CreateCollection(const milvus::grpc::Mapping& mapping) {
 //    ClientContext context;
 //    ::milvus::grpc::Status response;
 //    ::grpc::Status grpc_status = stub_->CreateCollection(&context, mapping, &response);
@@ -50,13 +50,13 @@ GrpcClient::~GrpcClient() = default;
 //        std::cerr << response.reason() << std::endl;
 //        return Status(StatusCode::ServerFailed, response.reason());
 //    }
-//    return Status::OK();
-//}
-//
-//bool
-//GrpcClient::HasCollection(const ::milvus::grpc::CollectionName& collection_name, Status& status) {
-//    ClientContext context;
-//    ::milvus::grpc::BoolReply response;
+    return Status::OK();
+}
+
+bool
+GrpcClient::HasCollection(const ::milvus::grpc::CollectionName& collection_name, Status& status) {
+    ClientContext context;
+    ::milvus::grpc::BoolReply response;
 //    ::grpc::Status grpc_status = stub_->HasCollection(&context, collection_name, &response);
 //
 //    if (!grpc_status.ok()) {
@@ -68,11 +68,11 @@ GrpcClient::~GrpcClient() = default;
 //        status = Status(StatusCode::ServerFailed, response.status().reason());
 //    }
 //    status = Status::OK();
-//    return response.bool_reply();
-//}
-//
-//Status
-//GrpcClient::DropCollection(const ::milvus::grpc::CollectionName& collection_name) {
+    return response.bool_reply();
+}
+
+Status
+GrpcClient::DropCollection(const ::milvus::grpc::CollectionName& collection_name) {
 //    ClientContext context;
 //    grpc::Status response;
 //    ::grpc::Status grpc_status = stub_->DropCollection(&context, collection_name, &response);
@@ -85,12 +85,12 @@ GrpcClient::~GrpcClient() = default;
 //        std::cerr << response.reason() << std::endl;
 //        return Status(StatusCode::ServerFailed, response.reason());
 //    }
-//
-//    return Status::OK();
-//}
-//
-//Status
-//GrpcClient::CreateIndex(const ::milvus::grpc::IndexParam& index_param) {
+
+    return Status::OK();
+}
+
+Status
+GrpcClient::CreateIndex(const ::milvus::grpc::IndexParam& index_param) {
 //    ClientContext context;
 //    grpc::Status response;
 //    ::grpc::Status grpc_status = stub_->CreateIndex(&context, index_param, &response);
@@ -103,9 +103,9 @@ GrpcClient::~GrpcClient() = default;
 //        std::cerr << response.reason() << std::endl;
 //        return Status(StatusCode::ServerFailed, response.reason());
 //    }
-//
-//    return Status::OK();
-//}
+
+    return Status::OK();
+}
 
 Status
 GrpcClient::Insert(const ::milvus::grpc::InsertParam& insert_param, ::milvus::grpc::EntityIds& entitiy_ids) {
@@ -124,8 +124,8 @@ GrpcClient::Insert(const ::milvus::grpc::InsertParam& insert_param, ::milvus::gr
     return Status::OK();
 }
 
-//Status
-//GrpcClient::GetEntityByID(const grpc::EntityIdentity& entity_identity, ::milvus::grpc::Entities& entities) {
+Status
+GrpcClient::GetEntityByID(const grpc::EntityIdentity& entity_identity, ::milvus::grpc::Entities& entities) {
 //    ClientContext context;
 //    ::grpc::Status grpc_status = stub_->GetEntityByID(&context, entity_identity, &entities);
 //
@@ -137,12 +137,12 @@ GrpcClient::Insert(const ::milvus::grpc::InsertParam& insert_param, ::milvus::gr
 //        std::cerr << entities.status().reason() << std::endl;
 //        return Status(StatusCode::ServerFailed, entities.status().reason());
 //    }
-//
-//    return Status::OK();
-//}
-//
-//Status
-//GrpcClient::ListIDInSegment(const grpc::GetEntityIDsParam& param, grpc::EntityIds& entity_ids) {
+
+    return Status::OK();
+}
+
+Status
+GrpcClient::ListIDInSegment(const grpc::GetEntityIDsParam& param, grpc::EntityIds& entity_ids) {
 //    ClientContext context;
 //    ::grpc::Status grpc_status = stub_->GetEntityIDs(&context, param, &entity_ids);
 //
@@ -154,13 +154,13 @@ GrpcClient::Insert(const ::milvus::grpc::InsertParam& insert_param, ::milvus::gr
 //        std::cerr << entity_ids.status().reason() << std::endl;
 //        return Status(StatusCode::ServerFailed, entity_ids.status().reason());
 //    }
-//
-//    return Status::OK();
-//}
-//
-//Status
-//GrpcClient::Search(const ::milvus::grpc::SearchParam& search_param,
-//                   ::milvus::grpc::QueryResult& topk_query_result) {
+
+    return Status::OK();
+}
+
+Status
+GrpcClient::Search(const ::milvus::grpc::SearchParam& search_param,
+                   ::milvus::grpc::QueryResult& topk_query_result) {
 //    ClientContext context;
 //    ::grpc::Status grpc_status = stub_->Search(&context, search_param, &topk_query_result);
 //
@@ -173,12 +173,12 @@ GrpcClient::Insert(const ::milvus::grpc::InsertParam& insert_param, ::milvus::gr
 //        std::cerr << topk_query_result.status().reason() << std::endl;
 //        return Status(StatusCode::ServerFailed, topk_query_result.status().reason());
 //    }
-//
-//    return Status::OK();
-//}
-//
-//Status
-//GrpcClient::GetCollectionInfo(const std::string& collection_name, ::milvus::grpc::Mapping& grpc_schema) {
+
+    return Status::OK();
+}
+
+Status
+GrpcClient::GetCollectionInfo(const std::string& collection_name, ::milvus::grpc::Mapping& grpc_schema) {
 //    ClientContext context;
 //    ::milvus::grpc::CollectionName grpc_collectionname;
 //    grpc_collectionname.set_collection_name(collection_name);
@@ -194,12 +194,12 @@ GrpcClient::Insert(const ::milvus::grpc::InsertParam& insert_param, ::milvus::gr
 //        std::cerr << grpc_schema.status().reason() << std::endl;
 //        return Status(StatusCode::ServerFailed, grpc_schema.status().reason());
 //    }
-//
-//    return Status::OK();
-//}
-//
-//int64_t
-//GrpcClient::CountEntities(grpc::CollectionName& collection_name, Status& status) {
+
+    return Status::OK();
+}
+
+int64_t
+GrpcClient::CountEntities(grpc::CollectionName& collection_name, Status& status) {
 //    ClientContext context;
 //    ::milvus::grpc::CollectionRowCount response;
 //    ::grpc::Status grpc_status = stub_->CountCollection(&context, collection_name, &response);
@@ -216,12 +216,12 @@ GrpcClient::Insert(const ::milvus::grpc::InsertParam& insert_param, ::milvus::gr
 //        return -1;
 //    }
 //
-//    status = Status::OK();
-//    return response.collection_row_count();
-//}
-//
-//Status
-//GrpcClient::ListCollections(milvus::grpc::CollectionNameList& collection_name_list) {
+    status = Status::OK();
+    return response.collection_row_count();
+}
+
+Status
+GrpcClient::ListCollections(milvus::grpc::CollectionNameList& collection_name_list) {
 //    ClientContext context;
 //    ::milvus::grpc::Command command;
 //    ::grpc::Status grpc_status = stub_->ShowCollections(&context, command, &collection_name_list);
@@ -236,12 +236,12 @@ GrpcClient::Insert(const ::milvus::grpc::InsertParam& insert_param, ::milvus::gr
 //        std::cerr << collection_name_list.status().reason() << std::endl;
 //        return Status(StatusCode::ServerFailed, collection_name_list.status().reason());
 //    }
-//
-//    return Status::OK();
-//}
-//
-//Status
-//GrpcClient::GetCollectionStats(grpc::CollectionName& collection_name, grpc::CollectionInfo& collection_stats) {
+
+    return Status::OK();
+}
+
+Status
+GrpcClient::GetCollectionStats(grpc::CollectionName& collection_name, grpc::CollectionInfo& collection_stats) {
 //    ClientContext context;
 //    ::milvus::grpc::Command command;
 //    ::grpc::Status grpc_status = stub_->ShowCollectionInfo(&context, collection_name, &collection_stats);
@@ -256,12 +256,12 @@ GrpcClient::Insert(const ::milvus::grpc::InsertParam& insert_param, ::milvus::gr
 //        std::cerr << collection_stats.status().reason() << std::endl;
 //        return Status(StatusCode::ServerFailed, collection_stats.status().reason());
 //    }
-//
-//    return Status::OK();
-//}
-//
-//Status
-//GrpcClient::Cmd(const std::string& cmd, std::string& result) {
+
+    return Status::OK();
+}
+
+Status
+GrpcClient::Cmd(const std::string& cmd, std::string& result) {
 //    ClientContext context;
 //    ::milvus::grpc::StringReply response;
 //    ::milvus::grpc::Command command;
@@ -278,12 +278,12 @@ GrpcClient::Insert(const ::milvus::grpc::InsertParam& insert_param, ::milvus::gr
 //        std::cerr << response.status().reason() << std::endl;
 //        return Status(StatusCode::ServerFailed, response.status().reason());
 //    }
-//
-//    return Status::OK();
-//}
-//
-//Status
-//GrpcClient::LoadCollection(milvus::grpc::CollectionName& collection_name) {
+
+    return Status::OK();
+}
+
+Status
+GrpcClient::LoadCollection(milvus::grpc::CollectionName& collection_name) {
 //    ClientContext context;
 //    ::milvus::grpc::Status response;
 //    ::grpc::Status grpc_status = stub_->PreloadCollection(&context, collection_name, &response);
@@ -297,8 +297,8 @@ GrpcClient::Insert(const ::milvus::grpc::InsertParam& insert_param, ::milvus::gr
 //        std::cerr << response.reason() << std::endl;
 //        return Status(StatusCode::ServerFailed, response.reason());
 //    }
-//    return Status::OK();
-//}
+    return Status::OK();
+}
 
 Status
 GrpcClient::DeleteEntityByID(grpc::DeleteByIDParam& delete_by_id_param) {
@@ -318,8 +318,8 @@ GrpcClient::DeleteEntityByID(grpc::DeleteByIDParam& delete_by_id_param) {
     return Status::OK();
 }
 
-//Status
-//GrpcClient::GetIndexInfo(grpc::CollectionName& collection_name, grpc::IndexParam& index_param) {
+Status
+GrpcClient::GetIndexInfo(grpc::CollectionName& collection_name, grpc::IndexParam& index_param) {
 //    ClientContext context;
 //    ::grpc::Status grpc_status = stub_->DescribeIndex(&context, collection_name, &index_param);
 //
@@ -331,12 +331,12 @@ GrpcClient::DeleteEntityByID(grpc::DeleteByIDParam& delete_by_id_param) {
 //        std::cerr << index_param.status().reason() << std::endl;
 //        return Status(StatusCode::ServerFailed, index_param.status().reason());
 //    }
-//
-//    return Status::OK();
-//}
-//
-//Status
-//GrpcClient::DropIndex(grpc::IndexParam& index_param) {
+
+    return Status::OK();
+}
+
+Status
+GrpcClient::DropIndex(grpc::IndexParam& index_param) {
 //    ClientContext context;
 //    ::milvus::grpc::Status response;
 //    ::grpc::Status grpc_status = stub_->DropIndex(&context, index_param, &response);
@@ -350,11 +350,11 @@ GrpcClient::DeleteEntityByID(grpc::DeleteByIDParam& delete_by_id_param) {
 //        std::cerr << response.reason() << std::endl;
 //        return Status(StatusCode::ServerFailed, response.reason());
 //    }
-//    return Status::OK();
-//}
-//
-//Status
-//GrpcClient::CreatePartition(const grpc::PartitionParam& partition_param) {
+    return Status::OK();
+}
+
+Status
+GrpcClient::CreatePartition(const grpc::PartitionParam& partition_param) {
 //    ClientContext context;
 //    ::milvus::grpc::Status response;
 //    ::grpc::Status grpc_status = stub_->CreatePartition(&context, partition_param, &response);
@@ -368,13 +368,13 @@ GrpcClient::DeleteEntityByID(grpc::DeleteByIDParam& delete_by_id_param) {
 //        std::cerr << response.reason() << std::endl;
 //        return Status(StatusCode::ServerFailed, response.reason());
 //    }
-//    return Status::OK();
-//}
-//
-//bool
-//GrpcClient::HasPartition(const grpc::PartitionParam& partition_param, Status& status) const {
-//    ClientContext context;
-//    ::milvus::grpc::BoolReply response;
+    return Status::OK();
+}
+
+bool
+GrpcClient::HasPartition(const grpc::PartitionParam& partition_param, Status& status) const {
+    ClientContext context;
+    ::milvus::grpc::BoolReply response;
 //    ::grpc::Status grpc_status = stub_->HasPartition(&context, partition_param, &response);
 //
 //    if (!grpc_status.ok()) {
@@ -386,11 +386,11 @@ GrpcClient::DeleteEntityByID(grpc::DeleteByIDParam& delete_by_id_param) {
 //        status = Status(StatusCode::ServerFailed, response.status().reason());
 //    }
 //    status = Status::OK();
-//    return response.bool_reply();
-//}
-//
-//Status
-//GrpcClient::ListPartitions(const grpc::CollectionName& collection_name, grpc::PartitionList& partition_array) const {
+    return response.bool_reply();
+}
+
+Status
+GrpcClient::ListPartitions(const grpc::CollectionName& collection_name, grpc::PartitionList& partition_array) const {
 //    ClientContext context;
 //    ::grpc::Status grpc_status = stub_->ShowPartitions(&context, collection_name, &partition_array);
 //
@@ -403,11 +403,11 @@ GrpcClient::DeleteEntityByID(grpc::DeleteByIDParam& delete_by_id_param) {
 //        std::cerr << partition_array.status().reason() << std::endl;
 //        return Status(StatusCode::ServerFailed, partition_array.status().reason());
 //    }
-//    return Status::OK();
-//}
-//
-//Status
-//GrpcClient::DropPartition(const ::milvus::grpc::PartitionParam& partition_param) {
+    return Status::OK();
+}
+
+Status
+GrpcClient::DropPartition(const ::milvus::grpc::PartitionParam& partition_param) {
 //    ClientContext context;
 //    ::milvus::grpc::Status response;
 //    ::grpc::Status grpc_status = stub_->DropPartition(&context, partition_param, &response);
@@ -421,11 +421,11 @@ GrpcClient::DeleteEntityByID(grpc::DeleteByIDParam& delete_by_id_param) {
 //        std::cerr << response.reason() << std::endl;
 //        return Status(StatusCode::ServerFailed, response.reason());
 //    }
-//    return Status::OK();
-//}
-//
-//Status
-//GrpcClient::Flush(const std::string& collection_name) {
+    return Status::OK();
+}
+
+Status
+GrpcClient::Flush(const std::string& collection_name) {
 //    ClientContext context;
 //
 //    ::milvus::grpc::FlushParam param;
@@ -445,11 +445,11 @@ GrpcClient::DeleteEntityByID(grpc::DeleteByIDParam& delete_by_id_param) {
 //        std::cerr << response.reason() << std::endl;
 //        return Status(StatusCode::ServerFailed, response.reason());
 //    }
-//    return Status::OK();
-//}
-//
-//Status
-//GrpcClient::Compact(milvus::grpc::CollectionName& collection_name) {
+    return Status::OK();
+}
+
+Status
+GrpcClient::Compact(milvus::grpc::CollectionName& collection_name) {
 //    ClientContext context;
 //    ::milvus::grpc::Status response;
 //    ::grpc::Status grpc_status = stub_->Compact(&context, collection_name, &response);
@@ -463,8 +463,8 @@ GrpcClient::DeleteEntityByID(grpc::DeleteByIDParam& delete_by_id_param) {
 //        std::cerr << response.reason() << std::endl;
 //        return Status(StatusCode::ServerFailed, response.reason());
 //    }
-//    return Status::OK();
-//}
+    return Status::OK();
+}
 
 Status
 GrpcClient::Disconnect() {
@@ -472,8 +472,8 @@ GrpcClient::Disconnect() {
     return Status::OK();
 }
 
-//Status
-//GrpcClient::SearchPB(milvus::grpc::SearchParamPB& search_param, milvus::grpc::QueryResult& result) {
+Status
+GrpcClient::SearchPB(milvus::grpc::SearchParamPB& search_param, milvus::grpc::QueryResult& result) {
 //    ClientContext context;
 //    ::grpc::Status grpc_status = stub_->SearchPB(&context, search_param, &result);
 //
@@ -486,7 +486,7 @@ GrpcClient::Disconnect() {
 //        std::cerr << result.status().reason() << std::endl;
 //        return Status(StatusCode::ServerFailed, result.status().reason());
 //    }
-//    return Status::OK();
-//}
+    return Status::OK();
+}
 
 }  // namespace milvus

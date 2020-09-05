@@ -32,10 +32,10 @@ UriCheck(const std::string& uri) {
     return (index != std::string::npos);
 }
 
-//template <typename T>
-//void
-//ConstructSearchParam(const std::string& collection_name, const std::vector<std::string>& partition_tag_array,
-//                     int64_t topk, const std::string& extra_params, T& search_param) {
+template <typename T>
+void
+ConstructSearchParam(const std::string& collection_name, const std::vector<std::string>& partition_tag_array,
+                     int64_t topk, const std::string& extra_params, T& search_param) {
 //    search_param.set_collection_name(collection_name);
 //    milvus::grpc::KeyValuePair* kv = search_param.add_extra_params();
 //    kv->set_key(EXTRA_PARAM_KEY);
@@ -44,10 +44,10 @@ UriCheck(const std::string& uri) {
 //    for (auto& tag : partition_tag_array) {
 //        search_param.add_partition_tag_array(tag);
 //    }
-//}
-//
-//void
-//CopyRowRecord(::milvus::grpc::VectorRowRecord* target, const VectorData& src) {
+}
+
+void
+CopyRowRecord(::milvus::grpc::VectorRowRecord* target, const VectorData& src) {
 //    if (!src.float_data.empty()) {
 //        auto vector_data = target->mutable_float_data();
 //        vector_data->Resize(static_cast<int>(src.float_data.size()), 0.0);
@@ -57,10 +57,10 @@ UriCheck(const std::string& uri) {
 //    if (!src.binary_data.empty()) {
 //        target->set_binary_data(src.binary_data.data(), src.binary_data.size());
 //    }
-//}
-//
-//void
-//ConstructTopkResult(const ::milvus::grpc::QueryResult& grpc_result, TopKQueryResult& topk_query_result) {
+}
+
+void
+ConstructTopkResult(const ::milvus::grpc::QueryResult& grpc_result, TopKQueryResult& topk_query_result) {
 //    topk_query_result.reserve(grpc_result.row_num());
 //    int64_t nq = grpc_result.row_num();
 //    int64_t topk = grpc_result.entities().ids_size() / nq;
@@ -82,10 +82,10 @@ UriCheck(const std::string& uri) {
 //
 //        topk_query_result.emplace_back(one_result);
 //    }
-//}
-//
-//void
-//ConstructTopkQueryResult(const ::milvus::grpc::QueryResult& grpc_result, TopKQueryResult& topk_query_result) {
+}
+
+void
+ConstructTopkQueryResult(const ::milvus::grpc::QueryResult& grpc_result, TopKQueryResult& topk_query_result) {
 //    int64_t nq = grpc_result.row_num();
 //    if (nq == 0) {
 //        return;
@@ -150,7 +150,7 @@ UriCheck(const std::string& uri) {
 //        }
 //        topk_query_result.emplace_back(one_result);
 //    }
-//}
+}
 
 void
 CopyFieldValue(const FieldValue &field_value, milvus::grpc::InsertParam &insert_param) {
@@ -273,8 +273,8 @@ CopyFieldValue(const FieldValue &field_value, milvus::grpc::InsertParam &insert_
     }
 }
 
-//void
-//CopyEntityToJson(::milvus::grpc::Entities& grpc_entities, JSON& json_entity) {
+void
+CopyEntityToJson(::milvus::grpc::Entities& grpc_entities, JSON& json_entity) {
 //    int i;
 //    auto grpc_field_size = grpc_entities.fields_size();
 //    std::vector<std::string> field_names(grpc_field_size);
@@ -390,7 +390,7 @@ CopyFieldValue(const FieldValue &field_value, milvus::grpc::InsertParam &insert_
 //        }
 //        json_entity.emplace_back(one_json);
 //    }
-//}
+}
 
 Status
 ClientProxy::Connect(const ConnectParam& param) {
@@ -447,9 +447,9 @@ ClientProxy::Disconnect() {
     }
 }
 
-//Status
-//ClientProxy::CreateCollection(const Mapping& mapping, const std::string& extra_params) {
-//    try {
+Status
+ClientProxy::CreateCollection(const Mapping& mapping, const std::string& extra_params) {
+    try {
 //        ::milvus::grpc::Mapping grpc_mapping;
 //        grpc_mapping.set_collection_name(mapping.collection_name);
 //        for (auto& field : mapping.fields) {
@@ -470,39 +470,42 @@ ClientProxy::Disconnect() {
 //        auto grpc_param = grpc_mapping.add_extra_params();
 //        grpc_param->set_key(EXTRA_PARAM_KEY);
 //        grpc_param->set_value(extra_params);
-//
+
 //        return client_ptr_->CreateCollection(grpc_mapping);
-//    } catch (std::exception& ex) {
-//        return Status(StatusCode::UnknownError, "Failed to create collection: " + std::string(ex.what()));
-//    }
-//}
-//
-//Status
-//ClientProxy::DropCollection(const std::string& collection_name) {
-//    try {
+          return Status::OK();
+    } catch (std::exception& ex) {
+        return Status(StatusCode::UnknownError, "Failed to create collection: " + std::string(ex.what()));
+    }
+}
+
+Status
+ClientProxy::DropCollection(const std::string& collection_name) {
+    try {
 //        ::milvus::grpc::CollectionName grpc_collection_name;
 //        grpc_collection_name.set_collection_name(collection_name);
 //        return client_ptr_->DropCollection(grpc_collection_name);
-//    } catch (std::exception& ex) {
-//        return Status(StatusCode::UnknownError, "Failed to drop collection: " + std::string(ex.what()));
-//    }
-//}
-//
-//bool
-//ClientProxy::HasCollection(const std::string& collection_name) {
-//    try {
+          return Status::OK();
+    } catch (std::exception& ex) {
+        return Status(StatusCode::UnknownError, "Failed to drop collection: " + std::string(ex.what()));
+    }
+}
+
+bool
+ClientProxy::HasCollection(const std::string& collection_name) {
+    try {
 //        Status status = Status::OK();
 //        ::milvus::grpc::CollectionName grpc_collection_name;
 //        grpc_collection_name.set_collection_name(collection_name);
 //        return client_ptr_->HasCollection(grpc_collection_name, status);
-//    } catch (std::exception& ex) {
-//        return false;
-//    }
-//}
-//
-//Status
-//ClientProxy::ListCollections(std::vector<std::string>& collection_array) {
-//    try {
+          return true;
+    } catch (std::exception& ex) {
+        return false;
+    }
+}
+
+Status
+ClientProxy::ListCollections(std::vector<std::string>& collection_array) {
+    try {
 //        Status status;
 //        milvus::grpc::CollectionNameList collection_name_list;
 //        status = client_ptr_->ListCollections(collection_name_list);
@@ -511,15 +514,15 @@ ClientProxy::Disconnect() {
 //        for (uint64_t i = 0; i < collection_name_list.collection_names_size(); ++i) {
 //            collection_array[i] = collection_name_list.collection_names(i);
 //        }
-//        return status;
-//    } catch (std::exception& ex) {
-//        return Status(StatusCode::UnknownError, "Failed to list collections: " + std::string(ex.what()));
-//    }
-//}
-//
-//Status
-//ClientProxy::GetCollectionInfo(const std::string& collection_name, Mapping& mapping) {
-//    try {
+        return Status::OK();
+    } catch (std::exception& ex) {
+        return Status(StatusCode::UnknownError, "Failed to list collections: " + std::string(ex.what()));
+    }
+}
+
+Status
+ClientProxy::GetCollectionInfo(const std::string& collection_name, Mapping& mapping) {
+    try {
 //        ::milvus::grpc::Mapping grpc_mapping;
 //
 //        Status status = client_ptr_->GetCollectionInfo(collection_name, grpc_mapping);
@@ -549,15 +552,15 @@ ClientProxy::Disconnect() {
 //        if (!grpc_mapping.extra_params().empty()) {
 //            mapping.extra_params = grpc_mapping.extra_params(0).value();
 //        }
-//        return status;
-//    } catch (std::exception& ex) {
-//        return Status(StatusCode::UnknownError, "Failed to get collection info: " + std::string(ex.what()));
-//    }
-//}
-//
-//Status
-//ClientProxy::GetCollectionStats(const std::string& collection_name, std::string& collection_stats) {
-//    try {
+        return Status::OK();
+    } catch (std::exception& ex) {
+        return Status(StatusCode::UnknownError, "Failed to get collection info: " + std::string(ex.what()));
+    }
+}
+
+Status
+ClientProxy::GetCollectionStats(const std::string& collection_name, std::string& collection_stats) {
+    try {
 //        Status status;
 //        ::milvus::grpc::CollectionName grpc_collection_name;
 //        grpc_collection_name.set_collection_name(collection_name);
@@ -565,68 +568,68 @@ ClientProxy::Disconnect() {
 //        status = client_ptr_->GetCollectionStats(grpc_collection_name, grpc_collection_stats);
 //
 //        collection_stats = grpc_collection_stats.json_info();
-//
-//        return status;
-//    } catch (std::exception& ex) {
-//        return Status(StatusCode::UnknownError, "Failed to get collection stats: " + std::string(ex.what()));
-//    }
-//}
-//
-//Status
-//ClientProxy::CountEntities(const std::string& collection_name, int64_t& row_count) {
-//    try {
+
+        return Status::OK();
+    } catch (std::exception& ex) {
+        return Status(StatusCode::UnknownError, "Failed to get collection stats: " + std::string(ex.what()));
+    }
+}
+
+Status
+ClientProxy::CountEntities(const std::string& collection_name, int64_t& row_count) {
+    try {
 //        Status status;
 //        ::milvus::grpc::CollectionName grpc_collection_name;
 //        grpc_collection_name.set_collection_name(collection_name);
 //        row_count = client_ptr_->CountEntities(grpc_collection_name, status);
-//        return status;
-//    } catch (std::exception& ex) {
-//        return Status(StatusCode::UnknownError, "Failed to count collection: " + std::string(ex.what()));
-//    }
-//}
-//
-//Status
-//ClientProxy::CreatePartition(const PartitionParam& partition_param) {
-//    try {
+        return Status::OK();
+    } catch (std::exception& ex) {
+        return Status(StatusCode::UnknownError, "Failed to count collection: " + std::string(ex.what()));
+    }
+}
+
+Status
+ClientProxy::CreatePartition(const PartitionParam& partition_param) {
+    try {
 //        ::milvus::grpc::PartitionParam grpc_partition_param;
 //        grpc_partition_param.set_collection_name(partition_param.collection_name);
 //        grpc_partition_param.set_tag(partition_param.partition_tag);
 //        Status status = client_ptr_->CreatePartition(grpc_partition_param);
-//        return status;
-//    } catch (std::exception& ex) {
-//        return Status(StatusCode::UnknownError, "Failed to create partition: " + std::string(ex.what()));
-//    }
-//}
-//
-//Status
-//ClientProxy::DropPartition(const PartitionParam& partition_param) {
-//    try {
+        return Status::OK();
+    } catch (std::exception& ex) {
+        return Status(StatusCode::UnknownError, "Failed to create partition: " + std::string(ex.what()));
+    }
+}
+
+Status
+ClientProxy::DropPartition(const PartitionParam& partition_param) {
+    try {
 //        ::milvus::grpc::PartitionParam grpc_partition_param;
 //        grpc_partition_param.set_collection_name(partition_param.collection_name);
 //        grpc_partition_param.set_tag(partition_param.partition_tag);
 //        Status status = client_ptr_->DropPartition(grpc_partition_param);
-//        return status;
-//    } catch (std::exception& ex) {
-//        return Status(StatusCode::UnknownError, "Failed to drop partition: " + std::string(ex.what()));
-//    }
-//}
-//
-//bool
-//ClientProxy::HasPartition(const std::string& collection_name, const std::string& partition_tag) const {
-//    try {
-//        Status status = Status::OK();
+        return Status::OK();
+    } catch (std::exception& ex) {
+        return Status(StatusCode::UnknownError, "Failed to drop partition: " + std::string(ex.what()));
+    }
+}
+
+bool
+ClientProxy::HasPartition(const std::string& collection_name, const std::string& partition_tag) const {
+    try {
+        Status status = Status::OK();
 //        ::milvus::grpc::PartitionParam grpc_partition_param;
 //        grpc_partition_param.set_collection_name(collection_name);
 //        grpc_partition_param.set_tag(partition_tag);
-//        return client_ptr_->HasPartition(grpc_partition_param, status);
-//    } catch (std::exception& ex) {
-//        return false;
-//    }
-//}
-//
-//Status
-//ClientProxy::ListPartitions(const std::string& collection_name, PartitionTagList& partition_tag_array) const {
-//    try {
+        return true;
+    } catch (std::exception& ex) {
+        return false;
+    }
+}
+
+Status
+ClientProxy::ListPartitions(const std::string& collection_name, PartitionTagList& partition_tag_array) const {
+    try {
 //        ::milvus::grpc::CollectionName grpc_collection_name;
 //        grpc_collection_name.set_collection_name(collection_name);
 //        ::milvus::grpc::PartitionList grpc_partition_list;
@@ -635,16 +638,16 @@ ClientProxy::Disconnect() {
 //        for (uint64_t i = 0; i < grpc_partition_list.partition_tag_array_size(); ++i) {
 //            partition_tag_array[i] = grpc_partition_list.partition_tag_array(i);
 //        }
-//        return status;
-//    } catch (std::exception& ex) {
-//        return Status(StatusCode::UnknownError, "Failed to show partitions: " + std::string(ex.what()));
-//    }
-//}
-//
-//Status
-//ClientProxy::CreateIndex(const IndexParam& index_param) {
-//    try {
-//        ::milvus::grpc::IndexParam grpc_index_param;
+        return Status::OK();
+    } catch (std::exception& ex) {
+        return Status(StatusCode::UnknownError, "Failed to show partitions: " + std::string(ex.what()));
+    }
+}
+
+Status
+ClientProxy::CreateIndex(const IndexParam& index_param) {
+    try {
+        ::milvus::grpc::IndexParam grpc_index_param;
 //        grpc_index_param.set_collection_name(index_param.collection_name);
 //        grpc_index_param.set_field_name(index_param.field_name);
 //        JSON json_param = JSON::parse(index_param.index_params);
@@ -657,26 +660,26 @@ ClientProxy::Disconnect() {
 //                kv->set_value(item.value());
 //            }
 //        }
-//        return client_ptr_->CreateIndex(grpc_index_param);
-//    } catch (std::exception& ex) {
-//        return Status(StatusCode::UnknownError, "Failed to build index: " + std::string(ex.what()));
-//    }
-//}
-//
-//Status
-//ClientProxy::DropIndex(const std::string& collection_name, const std::string& field_name,
-//                       const std::string& index_name) const {
-//    try {
+        return client_ptr_->CreateIndex(grpc_index_param);
+    } catch (std::exception& ex) {
+        return Status(StatusCode::UnknownError, "Failed to build index: " + std::string(ex.what()));
+    }
+}
+
+Status
+ClientProxy::DropIndex(const std::string& collection_name, const std::string& field_name,
+                       const std::string& index_name) const {
+    try {
 //        ::milvus::grpc::IndexParam grpc_index_param;
 //        grpc_index_param.set_collection_name(collection_name);
 //        grpc_index_param.set_field_name(field_name);
 //        grpc_index_param.set_index_name(index_name);
 //        Status status = client_ptr_->DropIndex(grpc_index_param);
-//        return status;
-//    } catch (std::exception& ex) {
-//        return Status(StatusCode::UnknownError, "Failed to drop index: " + std::string(ex.what()));
-//    }
-//}
+        return Status::OK();
+    } catch (std::exception& ex) {
+        return Status(StatusCode::UnknownError, "Failed to drop index: " + std::string(ex.what()));
+    }
+}
 
 Status
 ClientProxy::Insert(const std::string& collection_name, const std::string& partition_tag, const FieldValue& field_value,
@@ -709,10 +712,10 @@ ClientProxy::Insert(const std::string& collection_name, const std::string& parti
     return status;
 }
 
-//Status
-//ClientProxy::GetEntityByID(const std::string& collection_name, const std::vector<int64_t>& id_array,
-//                           std::string& entities) {
-//    try {
+Status
+ClientProxy::GetEntityByID(const std::string& collection_name, const std::vector<int64_t>& id_array,
+                           std::string& entities) {
+    try {
 //        ::milvus::grpc::EntityIdentity entity_identity;
 //        entity_identity.set_collection_name(collection_name);
 //        for (auto id : id_array) {
@@ -728,11 +731,11 @@ ClientProxy::Insert(const std::string& collection_name, const std::string& parti
 //        JSON json_entities;
 //        CopyEntityToJson(grpc_entities, json_entities);
 //        entities = json_entities.dump();
-//        return status;
-//    } catch (std::exception& ex) {
-//        return Status(StatusCode::UnknownError, "Failed to get entity by id: " + std::string(ex.what()));
-//    }
-//}
+        return Status::OK();
+    } catch (std::exception& ex) {
+        return Status(StatusCode::UnknownError, "Failed to get entity by id: " + std::string(ex.what()));
+    }
+}
 
 Status
 ClientProxy::DeleteEntityByID(const std::string& collection_name, const std::vector<int64_t>& id_array) {
@@ -749,10 +752,10 @@ ClientProxy::DeleteEntityByID(const std::string& collection_name, const std::vec
     }
 }
 
-//Status
-//ClientProxy::Search(const std::string& collection_name, const std::vector<std::string>& partition_list,
-//                    const std::string& dsl, const VectorParam& vector_param, TopKQueryResult& query_result) {
-//    try {
+Status
+ClientProxy::Search(const std::string& collection_name, const std::vector<std::string>& partition_list,
+                    const std::string& dsl, const VectorParam& vector_param, TopKQueryResult& query_result) {
+    try {
 //        ::milvus::grpc::SearchParam search_param;
 //        search_param.set_collection_name(collection_name);
 //        for (auto partition : partition_list) {
@@ -771,16 +774,16 @@ ClientProxy::DeleteEntityByID(const std::string& collection_name, const std::vec
 //        ::milvus::grpc::QueryResult grpc_result;
 //        Status status = client_ptr_->Search(search_param, grpc_result);
 //        ConstructTopkQueryResult(grpc_result, query_result);
-//        return status;
-//    } catch (std::exception& ex) {
-//        return Status(StatusCode::UnknownError, "Failed to search entities: " + std::string(ex.what()));
-//    }
-//}
-//
-//Status
-//ClientProxy::ListIDInSegment(const std::string& collection_name, const std::string& segment_name,
-//                             std::vector<int64_t>& id_array) {
-//    try {
+        return Status::OK();
+    } catch (std::exception& ex) {
+        return Status(StatusCode::UnknownError, "Failed to search entities: " + std::string(ex.what()));
+    }
+}
+
+Status
+ClientProxy::ListIDInSegment(const std::string& collection_name, const std::string& segment_name,
+                             std::vector<int64_t>& id_array) {
+    try {
 //        ::milvus::grpc::GetEntityIDsParam param;
 //        param.set_collection_name(collection_name);
 //        param.set_segment_name(segment_name);
@@ -791,27 +794,27 @@ ClientProxy::DeleteEntityByID(const std::string& collection_name, const std::vec
 //            return status;
 //        }
 //        id_array.insert(id_array.end(), entity_ids.entity_id_array().begin(), entity_ids.entity_id_array().end());
-//        return status;
-//    } catch (std::exception& ex) {
-//        return Status(StatusCode::UnknownError, "Failed to get ids from segment: " + std::string(ex.what()));
-//    }
-//}
-//
-//Status
-//ClientProxy::LoadCollection(const std::string& collection_name) const {
-//    try {
+        return Status::OK();
+    } catch (std::exception& ex) {
+        return Status(StatusCode::UnknownError, "Failed to get ids from segment: " + std::string(ex.what()));
+    }
+}
+
+Status
+ClientProxy::LoadCollection(const std::string& collection_name) const {
+    try {
 //        ::milvus::grpc::CollectionName grpc_collection_name;
 //        grpc_collection_name.set_collection_name(collection_name);
 //        Status status = client_ptr_->LoadCollection(grpc_collection_name);
-//        return status;
-//    } catch (std::exception& ex) {
-//        return Status(StatusCode::UnknownError, "Failed to preload collection: " + std::string(ex.what()));
-//    }
-//}
-//
-//Status
-//ClientProxy::Flush(const std::vector<std::string>& collection_name_array) {
-//    try {
+        return Status::OK();
+    } catch (std::exception& ex) {
+        return Status(StatusCode::UnknownError, "Failed to preload collection: " + std::string(ex.what()));
+    }
+}
+
+Status
+ClientProxy::Flush(const std::vector<std::string>& collection_name_array) {
+    try {
 //        if (collection_name_array.empty()) {
 //            return client_ptr_->Flush("");
 //        } else {
@@ -819,28 +822,28 @@ ClientProxy::DeleteEntityByID(const std::string& collection_name, const std::vec
 //                client_ptr_->Flush(collection_name);
 //            }
 //        }
-//        return Status::OK();
-//    } catch (std::exception& ex) {
-//        return Status(StatusCode::UnknownError, "Failed to flush collection");
-//    }
-//}
-//
-//Status
-//ClientProxy::Compact(const std::string& collection_name) {
-//    try {
+        return Status::OK();
+    } catch (std::exception& ex) {
+        return Status(StatusCode::UnknownError, "Failed to flush collection");
+    }
+}
+
+Status
+ClientProxy::Compact(const std::string& collection_name) {
+    try {
 //        ::milvus::grpc::CollectionName grpc_collection_name;
 //        grpc_collection_name.set_collection_name(collection_name);
 //        Status status = client_ptr_->Compact(grpc_collection_name);
-//        return status;
-//    } catch (std::exception& ex) {
-//        return Status(StatusCode::UnknownError, "Failed to compact collection: " + std::string(ex.what()));
-//    }
-//}
+        return Status::OK();
+    } catch (std::exception& ex) {
+        return Status(StatusCode::UnknownError, "Failed to compact collection: " + std::string(ex.what()));
+    }
+}
 
 /*******************************New Interface**********************************/
 
-//void
-//WriteQueryToProto(::milvus::grpc::GeneralQuery* general_query, BooleanQueryPtr boolean_query) {
+void
+WriteQueryToProto(::milvus::grpc::GeneralQuery* general_query, BooleanQueryPtr boolean_query) {
 //    if (!boolean_query->GetBooleanQueries().empty()) {
 //        for (auto query : boolean_query->GetBooleanQueries()) {
 //            auto grpc_boolean_query = general_query->mutable_boolean_query();
@@ -897,14 +900,14 @@ ClientProxy::DeleteEntityByID(const std::string& collection_name, const std::vec
 //            }
 //        }
 //    }
-//}
-//
-//Status
-//ClientProxy::SearchPB(const std::string& collection_name, const std::vector<std::string>& partition_list,
-//                      BooleanQueryPtr& boolean_query, const std::string& extra_params,
-//                      TopKQueryResult& topk_query_result) {
-//    try {
-//        // convert boolean_query to proto
+}
+
+Status
+ClientProxy::SearchPB(const std::string& collection_name, const std::vector<std::string>& partition_list,
+                      BooleanQueryPtr& boolean_query, const std::string& extra_params,
+                      TopKQueryResult& topk_query_result) {
+    try {
+        // convert boolean_query to proto
 //        ::milvus::grpc::SearchParamPB search_param;
 //        search_param.set_collection_name(collection_name);
 //        for (auto partition : partition_list) {
@@ -924,10 +927,10 @@ ClientProxy::DeleteEntityByID(const std::string& collection_name, const std::vec
 //
 //        // step 3: convert result array
 //        ConstructTopkQueryResult(result, topk_query_result);
-//        return status;
-//    } catch (std::exception& ex) {
-//        return Status(StatusCode::UnknownError, "Failed to search entities: " + std::string(ex.what()));
-//    }
-//}
+        return Status::OK();
+    } catch (std::exception& ex) {
+        return Status(StatusCode::UnknownError, "Failed to search entities: " + std::string(ex.what()));
+    }
+}
 
 }  // namespace milvus
